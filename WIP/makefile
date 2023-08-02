@@ -6,38 +6,40 @@
 #    By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/27 14:06:28 by mheinke           #+#    #+#              #
-#    Updated: 2023/07/31 17:00:02 by mheinke          ###   ########.fr        #
+#    Updated: 2023/08/02 20:19:34 by mheinke          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-LIBFTNAME = libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-LIBFTDIR = ./libft
+HEADER = ft_printf.h
+SRC = ft_printf.c printf_char.c printf_string.c printf_ptr.c
+OBJS = $(SRC:.c=.o)
+NAME = libftprintf.a
+LIB_PATH = ./libft 
+LIBFT = $(LIB_PATH)/libft.a
 
-SRCS = 	ft_printf.c \
-		printf_string.c \
-		printf_char.c
+all: $(LIBFT) $(NAME)
 
-OBJS = $(SRCS:.c=.o)
+$(NAME): $(OBJS)
+	cp libft/libft.a $(NAME)
+	ar -rcs $(NAME) $(OBJS)
 
-all: $(NAME)
+$(LIBFT):
+	make -C $(LIB_PATH) all 
 
-makelibft:
-	@make -C $(LIBFTDIR)
-	@cp $(LIBFTDIR)/$(LIBFTNAME) .
-	@mv $(LIBFTNAME) $(NAME)
+%.o: %.c  $(HEADER)
+	$(CC) -c $(CFLAGS) -I ./ $< -o $@  
 
-$(NAME): makelibft $(OBJS)
-	@ar -r $(NAME) $(OBJS)
+
+fclean: clean
+	make -C $(LIB_PATH) fclean
+	rm -rf $(NAME)	
 
 clean:
-	@rm -f $(OBJS)
-	@cd $(LIBFTDIR) && make clean
-	
-fclean: clean
-	@rm -f $(NAME)
-	@cd $(LIBFTDIR) && make fclean
-	
+	rm -f $(OBJS)
+	make -C $(LIB_PATH) clean
+
 re: fclean all
+
+.PHONY: all clean fclean re

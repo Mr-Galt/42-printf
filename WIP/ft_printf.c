@@ -6,7 +6,7 @@
 /*   By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:00:59 by mheinke           #+#    #+#             */
-/*   Updated: 2023/07/31 16:59:23 by mheinke          ###   ########.fr       */
+/*   Updated: 2023/08/02 20:31:39 by mheinke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	process_input(const char *input, unsigned int *i, va_list *args)
 		return_counter += printf_char(va_arg(*args, int));
 	else if (input[*i] == 's')
 		return_counter += printf_string(va_arg(*args, char *));
+	else if (input[*i] == 'p')
+		return_counter += printf_ptr(va_arg(*args, void *));
 	else if (input[*i] == '%')
 	{
 		printf_char('%');
@@ -41,24 +43,17 @@ int	ft_printf(const char *input, ...)
 	va_start(args, input);
 	while (input[i])
 	{
-	{
 		if (input[i] == '%')
 		{
 			i++;
 			return_length += process_input(input, &i, &args);
-		}	
+		}
 		else
 		{
 			return_length += printf_char(input[i]);
 		}
 		i++;
 	}
-	}
 	va_end(args);
 	return (return_length);
 }
-
-// int	main(void){
-// 	printf("OG PrintF: %c%c%c\n", 'a', '\t', 'b');
-// 	ft_printf("My PrintF: %c%c%c\n", 'a', '\t', 'b');
-// }
