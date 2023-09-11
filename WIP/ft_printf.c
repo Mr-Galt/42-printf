@@ -6,12 +6,11 @@
 /*   By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:00:59 by mheinke           #+#    #+#             */
-/*   Updated: 2023/08/02 20:31:39 by mheinke          ###   ########.fr       */
+/*   Updated: 2023/08/17 09:55:04 by mheinke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static int	process_input(const char *input, unsigned int *i, va_list *args)
 {
@@ -24,6 +23,14 @@ static int	process_input(const char *input, unsigned int *i, va_list *args)
 		return_counter += printf_string(va_arg(*args, char *));
 	else if (input[*i] == 'p')
 		return_counter += printf_ptr(va_arg(*args, void *));
+	else if (input[*i] == 'd' || input[*i] == 'i')
+		return_counter += printf_nbr(va_arg(*args, int));
+	else if (input[*i] == 'x')
+		return_counter += printf_hex(va_arg(*args, int), 1);
+	else if (input[*i] == 'X')
+		return_counter += printf_hex(va_arg(*args, int), 0);
+	else if (input[*i] == 'u')
+		return_counter += printf_uint(va_arg(*args, int));
 	else if (input[*i] == '%')
 	{
 		printf_char('%');

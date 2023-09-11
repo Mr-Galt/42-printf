@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_string.c                                    :+:      :+:    :+:   */
+/*   printf_nbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 12:25:06 by mheinke           #+#    #+#             */
-/*   Updated: 2023/08/17 09:54:07 by mheinke          ###   ########.fr       */
+/*   Created: 2023/08/03 10:45:21 by mheinke           #+#    #+#             */
+/*   Updated: 2023/08/17 09:53:53 by mheinke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	printf_string(char *str)
+int	printf_nbr(int number)
 {
-	unsigned int	char_counter;
+	int	digit_counter;
 
-	if (!str)
+	digit_counter = 0;
+	if (number == INT_MIN)
+		return (printf_string("-2147483648"));
+	else if (number < 0)
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		digit_counter += printf_char('-');
+		number *= -1;
 	}
-	ft_putstr_fd(str, 1);
-	char_counter = ft_strlen(str);
-	return (char_counter);
+	if (number > 9)
+		digit_counter += printf_nbr(number / 10);
+	digit_counter += printf_char((number % 10) + 48);
+	return (digit_counter);
 }

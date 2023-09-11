@@ -6,12 +6,11 @@
 /*   By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:01:16 by mheinke           #+#    #+#             */
-/*   Updated: 2023/07/31 16:05:25 by mheinke          ###   ########.fr       */
+/*   Updated: 2023/08/17 09:54:36 by mheinke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdint.h>
 
 int	printf_char(int c)
 {

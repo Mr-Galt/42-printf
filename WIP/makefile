@@ -6,14 +6,15 @@
 #    By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/27 14:06:28 by mheinke           #+#    #+#              #
-#    Updated: 2023/08/02 20:19:34 by mheinke          ###   ########.fr        #
+#    Updated: 2023/08/11 19:02:38 by mheinke          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 HEADER = ft_printf.h
-SRC = ft_printf.c printf_char.c printf_string.c printf_ptr.c
+SRC = 	ft_printf.c printf_char.c printf_string.c printf_ptr.c \
+		printf_nbr.c printf_hex.c printf_uint.c
 OBJS = $(SRC:.c=.o)
 NAME = libftprintf.a
 LIB_PATH = ./libft 
