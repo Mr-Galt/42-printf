@@ -1,40 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_ptr.c                                       :+:      :+:    :+:   */
+/*   printf_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 20:14:55 by mheinke           #+#    #+#             */
-/*   Updated: 2023/08/17 10:10:34 by mheinke          ###   ########.fr       */
+/*   Created: 2023/08/03 10:52:48 by mheinke           #+#    #+#             */
+/*   Updated: 2023/09/12 12:43:16 by mheinke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	size_hex_address(unsigned long long n)
+static int	size_hex(unsigned int n)
 {
 	int	size;
 
-	if (n < 0)
+	if (n <= 0)
 		size = 1;
 	else
 		size = 0;
 	while (n)
 	{
-		size ++;
+		size++;
 		n /= 16;
 	}
 	return (size);
 }
 
-static int	ft_hex_address(unsigned long long n)
+int	printf_hex(unsigned int n, int x_switch)
 {
-	char	*base_16;
-	int		size;
+	char			*base_16;
+	int				size;
 
-	size = size_hex_address(n);
+	size = size_hex(n);
 	base_16 = "0123456789abcdef";
+	if (x_switch == 0)
+		base_16 = "0123456789ABCDEF";
 	if (n < 16)
 	{
 		if (printf_char(base_16[n]) == -1)
@@ -42,21 +44,10 @@ static int	ft_hex_address(unsigned long long n)
 	}
 	else
 	{
-		ft_hex_address(n / 16);
-		ft_hex_address(n % 16);
+		if (printf_hex(n / 16, x_switch) == -1)
+			return (-1);
+		if (printf_hex(n % 16, x_switch) == -1)
+			return (-1);
 	}
 	return (size);
-}
-
-int	printf_ptr(void *ptr)
-{
-	int	n;
-
-	if (printf_string("0x") == -1)
-		return (-1);
-	n = ft_hex_address((unsigned long long) ptr);
-	if (n != 0)
-		return (n + 2);
-	else
-		return (3);
 }

@@ -6,8 +6,12 @@
 #    By: mheinke <mheinke@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/04 09:45:03 by mheinke           #+#    #+#              #
-#    Updated: 2023/07/15 18:37:02 by mheinke          ###   ########.fr        #
+#    Updated: 2023/09/12 10:41:50 by mheinke          ###   ########.fr        #
 #                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
+#                                  VARIABLES                                   #
 # **************************************************************************** #
 
 NAME = libft.a
@@ -17,6 +21,10 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
+# **************************************************************************** #
+#                                DIRECTORIES                                   #
+# **************************************************************************** #
+
 FILES = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_tolower \
 		ft_isascii ft_isdigit ft_isprint ft_memchr ft_memcpy \
 		ft_memcmp ft_memset ft_strchr ft_strlcat ft_toupper \
@@ -25,19 +33,22 @@ FILES = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_tolower \
 		ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_strmapi \
 		ft_strtrim ft_substr ft_split ft_itoa ft_striteri
 
-FILES_B = 	ft_lstadd_back ft_lstadd_front ft_lstclear \
+FILES_B = ft_lstadd_back ft_lstadd_front ft_lstclear \
  			ft_lstdelone ft_lstiter ft_lstlast \
  			ft_lstmap ft_lstnew ft_lstsize
 
 
-SRCS_DIR = ./
-SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-SRCS_B = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_B)))
+SRCS_DIR 	= ./
+SRCS 		= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
+SRCS_B 		= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_B)))
 
-OBJS_DIR = ./
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
+OBJS_DIR 	= ./
+OBJS 		= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+OBJS_B 		= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
 
+# **************************************************************************** #
+#                                   TARGETS                                    #
+# **************************************************************************** #
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) -c -o $@ $<
